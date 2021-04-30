@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "title": "Indian food in the summer",
+        "maxNumberOfGuests": 5,
+        "description": "A nice night out eating delicious indian food",
+        "createdAt": "2019/12/7 14:34",
+        "price": 167
+    },
+    {
+        "id": 2,
+        "title": "Canadian food in winter",
+        "maxNumberOfGuests": 7,
+        "description": "A nice evening out with the Moose Family, ice cream included",
+        "createdAt": "2019/12/8 15:31",
+        "price": 197
+    },
+    {
+        "id": 3,
+        "title": "Polish food in Gdansk",
+        "maxNumberOfGuests": 17,
+        "description": "Have awesome pierogi with kapusta and drink some herbata",
+        "createdAt": "2019/12/20 18:24",
+        "price": 81
+    },
+    {
+        "id": 4,
+        "title": "Green food in Copenhagen",
+        "maxNumberOfGuests": 15,
+        "description": "Sit on the grass, have kale smoothie and spinach salad",
+        "createdAt": "2019/12/21 19:11",
+        "price": 30
+    },
+    {
+        "id": 5,
+        "title": "Polestinian fusion cuisine",
+        "maxNumberOfGuests": 16,
+        "description": "Polish and Palestinian fusion cuisine cooked ny two Martians",
+        "createdAt": "2019/12/23 15:01",
+        "price": 100
+    },
+    {
+        "id": 6,
+        "title": "Pink food in Copenhagen",
+        "maxNumberOfGuests": 12,
+        "description": "Have a grapefruit juice prepared by 3 flamingos",
+        "createdAt": "2019/12/24 12:11",
+        "price": 11
+    }
+]
