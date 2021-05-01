@@ -18,9 +18,9 @@ app.get("/", (request, response) => {
         <h2>micro squirreloid's server </h2>  <br/>
         <p> Squirreloids are delightful creatures. <br/>
         They eat evil worms. Tadaaam. </p> <br/>
-        <a href="http://localhost:3000/about">       http://localhost:3000/about       </a> 
-        <a href="http://localhost:3000/contact">     http://localhost:3000/contact     </a> 
-        <a href="http://localhost:3000/api-example"> http://localhost:3000/api-example </a> 
+        <a href="http://localhost:3000/about">       http://localhost:3000/about       </a> <br/>
+        <a href="http://localhost:3000/contact">     http://localhost:3000/contact     </a> <br/>
+        <a href="http://localhost:3000/api-example"> http://localhost:3000/api-example </a> <br/>
     </body>
 
   `);

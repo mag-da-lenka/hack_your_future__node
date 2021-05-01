@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Benjamin Hughes",
+        "email": "benjamin@hughes.dk",
+        "mealId": 1
+    },
+    {
+        "id": 2,
+        "name": "Benjamin Hughes",
+        "email": "benjamin@hughes.dk",
+        "mealId": 5
+    },
+    {
+        "id": 3,
+        "name": "Martian Squirrel",
+        "email": "squirreloid@marsplanet.dk",
+        "mealId": 5
+    },
+    {
+        "id": 4,
+        "name": "Swathi Hacker",
+        "email": "swathi@hackerplus.dk",
+        "mealId": 3
+    },
+    {
+        "id": 5,
+        "name": "Lucha Forrester",
+        "email": "lucha@amagerforest.dk",
+        "mealId": 2
+    },
+    {
+        "id": 6,
+        "name": "Afrouz Jensen",
+        "email": "afrouz@seaside.dk",
+        "mealId": 4
+    }
+]
