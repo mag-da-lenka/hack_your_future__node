@@ -8,139 +8,150 @@ const fs = require("fs");
 const jsonMeals = require("./data/meals");
 const jsonReservations = require("./data/reservations")
 const jsonReviews = require("./data/reviews");
-// console.log(`meals: `, meals);
-// console.log(`reservations: `, reservations);
-// console.log(`reviews: `, reviews);
+console.log(`jsonMeals: `, jsonMeals);
+// console.log(`jsonReservations: `, jsonReservations);
+// console.log(`jsonReviews: `, jsonReviews);
 
 
 // this is where you will be adding your routes
 
-// 0. HOME 
 
 const getHead = require("./head");
+const { json } = require("express");
+
+// 0.1 MAIN
 
 app.get("/", async (request, response) => {
+
   response.send(`
 
     ${getHead('node 1 : : hw : : meal sharing app 1')} 
 
     <body>
+
       <h1>node 1 : : hw : : meal sharing app 1 v.2021 </h1> <br/>
+
+      <a href="http://localhost:3000/test">          
+               http://localhost:3000/test &nbsp; === all objects &nbsp; 
+      </a>   <br/> <br/> 
+
       <a href="http://localhost:3000/meal">          http://localhost:3000/meal         </a>   <br/> 
       <a href="http://localhost:3000/meals">         http://localhost:3000/meals        </a>   <br/>
       <a href="http://localhost:3000/large-meals">   http://localhost:3000/large-meals  </a>   <br/> 
       <a href="http://localhost:3000/cheap-meals">   http://localhost:3000/cheap-meals  </a>   <br/> 
       <a href="http://localhost:3000/reservation">   http://localhost:3000/reservation  </a>   <br/>
       <a href="http://localhost:3000/reservations">  http://localhost:3000/reservations </a>   <br/>
+
     </body>
+
   `);
+
+});
+
+
+// 0.2 /TEST (unchanged)
+
+app.get('/test', (reqest, response) => {
+  const dataObjects = {
+    json_1_MEALS: jsonMeals,
+    json_2_REVIEWS: jsonReviews,
+    json_3_RESERVATIONS: jsonReservations
+  }
+  response.send(dataObjects)
+});
+
+
+// 1.0 /MEALS
+
+// // v1
+
+// jsonMeals.forEach((aMeal) => { // looploop to add reviews 
+
+//   aMeal.review = [];
+
+//   jsonReviews.forEach((aReview) => {
+//     if (aReview.mealId === aMeal.id) {
+//       aMeal.review.push(aReview);
+//     }
+//   });
+
+// });
+
+// app.get('/meals', (req, res) => {
+//   res.send(jsonMeals);
+// });
+
+// v2
+const mealsWithRevs_v2 = jsonMeals
+  .map((aMeal) => {
+    aMeal.jsonReviews = jsonReviews
+      .filter((aReview) => aReview.mealId === aMeal.id);
+    return aMeal;
+  })
+
+app.get("/meals", (req, res) => {
+  res.send(mealsWithRevs_v2);
 });
 
 
 
 
-// 1. /MEALS
+// 2.0 /CHEAP MEALS
+// const cheapMealsFiltered = jsonMeals
 
-jsonMeals.forEach((aMeal) => {
+const cheapMealsFiltered = mealsWithRevs_v2
+  .filter((aCheapMeal) => aCheapMeal.price < 66.6);
 
-  aMeal.review = [];
-
-  jsonReviews.forEach((aReview) => {
-    if (aReview.mealId === aMeal.id) {
-      aMeal.review.push(aReview);
-    };
-  });
-});
-// 
-app.get('/meals', (request, response) => {
-  
-  response.send(jsonMeals);
+app.get('/cheap-meals', (req, res) => {
+  res.send(cheapMealsFiltered);
 });
 
 
-// 2. /CHEAP MEALS
 
-const cheapMealsFiltered = jsonMeals
-  .filter((aCheapMeal) => aCheapMeal.price < 107);
+// 3.0 /LARGE MEALS  (ny number of guests)
 
-cheapMealsFiltered.forEach((aMeal) => {
-
-  aMeal.review = [];
-
-  jsonReviews.forEach((aReview) => {
-    if (aReview.mealId === aMeal.id) {
-      aMeal.review.push(aReview);
-    };
-  });
-});
-// 
-app.get('/cheap-meals', (request, response) => {
-  
-  response.send(cheapMealsFiltered);
-});
-
-
-// 3. /LARGE MEALS 
-
-const largeMealsFiltered =
-  jsonMeals.filter((aLargeMeal) =>
+const largeMealsFiltered = mealsWithRevs_v2
+  .filter((aLargeMeal) =>
     aLargeMeal.maxNumberOfGuests > 16);
 
-largeMealsFiltered.forEach((aMeal) => {
-
-  aMeal.review = [];
-
-  jsonReviews.forEach((aReview) => {
-    if (aReview.mealId === aMeal.id) {
-      aMeal.review.push(aReview);
-    };
-  });
-});
-//
-app.get('/large-meals', (request, response) => {
-  
-  response.send(largeMealsFiltered);
+app.get('/large-meals', (req, res) => {
+  res.send(largeMealsFiltered);
 });
 
 
-// 4. /MEAL 
 
-jsonMeals.forEach((aMeal) => {
-  aMeal.review = [];
-  jsonReviews.forEach((aReview) => {
-    if (aReview.mealId === aMeal.id) {
-      aMeal.review.push(aReview);
-    };
-  });
-});
-//
-app.get('/meal', (request, response) => {
-  
-  aRandomMealNumber = Math.floor(jsonMeals.length * Math.random())
-  const aRandomMeal = jsonMeals[aRandomMealNumber];
+
+// 4.0 /MEAL 
+
+app.get('/meal', (req, res) => {
+
+  aRandomMealNumber = Math.floor(mealsWithRevs_v2.length * Math.random())
+  const aRandomMeal = mealsWithRevs_v2[aRandomMealNumber];
   // it declared outside --> it won't be refreshing each time, if inside ---> it will
-  
-  response.send(aRandomMeal);
+
+  res.send(aRandomMeal);
 });
 
 
-// 5. /RESERVATIONS 
 
-app.get('/reservations', (request, response) => {
-  
-  response.json(jsonReservations);
+
+// 5.0 /RESERVATIONS 
+
+app.get('/reservations', (req, res) => {
+  res.json(jsonReservations);
 });
 
 
-// 6. /RESERVATION
 
-app.get('/reservation', (request, response) => {
+// 6.0 /RESERVATION
+
+app.get('/reservation', (req, res) => {
 
   const aRandomReservationNumber = Math.floor(jsonReservations.length * Math.random())
   const aRandomReservation = jsonReservations[aRandomReservationNumber];
   // it declared outside --> it won't be refreshing each time, if inside ---> it will
-  
-  response.send(aRandomReservation)
+
+  res.send(aRandomReservation)
 });
 
 
