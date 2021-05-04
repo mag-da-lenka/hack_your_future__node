@@ -5,16 +5,20 @@ const fs = require("fs");
 
 
 // imported data
-const jsonMeals = require("./data/meals");
+const jsonMeals = require("./data/meals"); 
+const jsonMealsCloned = JSON.parse(JSON.stringify(jsonMeals)); 
+jsonMeals === jsonMealsCloned // false
 const jsonReservations = require("./data/reservations")
 const jsonReviews = require("./data/reviews");
-console.log(`jsonMeals: `, jsonMeals);
+
+// console.log(`jsonMeals: `, jsonMeals); 
+// console.log(`jsonMealsCloned: `, jsonMealsCloned);
 // console.log(`jsonReservations: `, jsonReservations);
 // console.log(`jsonReviews: `, jsonReviews);
 
 
-// this is where you will be adding your routes
 
+// this is where you will be adding your routes
 
 const getHead = require("./head");
 const { json } = require("express");
@@ -49,7 +53,8 @@ app.get("/", async (request, response) => {
 });
 
 
-// 0.2 /TEST (unchanged)
+// 0.2 /TEST (SHOULD BE unchanged json files but meals is WITH reservations. 
+//            WHYYYY? (mapping should not change the original array!!! wtf))
 
 app.get('/test', (reqest, response) => {
   const dataObjects = {
@@ -64,36 +69,32 @@ app.get('/test', (reqest, response) => {
 // 1.0 /MEALS
 
 // // v1
-
 // jsonMeals.forEach((aMeal) => { // looploop to add reviews 
-
 //   aMeal.review = [];
-
 //   jsonReviews.forEach((aReview) => {
 //     if (aReview.mealId === aMeal.id) {
 //       aMeal.review.push(aReview);
 //     }
 //   });
-
 // });
-
 // app.get('/meals', (req, res) => {
 //   res.send(jsonMeals);
 // });
 
 // v2
-const mealsWithRevs_v2 = jsonMeals
+const mealsWithRevs_v2 = jsonMealsCloned
   .map((aMeal) => {
     aMeal.jsonReviews = jsonReviews
-      .filter((aReview) => aReview.mealId === aMeal.id);
+      .filter((aReview) =>
+        aReview.mealId === aMeal.id);
     return aMeal;
   })
-
 app.get("/meals", (req, res) => {
   res.send(mealsWithRevs_v2);
 });
 
-
+console.log(`jsonMeals: `, jsonMeals);
+console.log(`mealsWithRevs_v2: `, mealsWithRevs_v2);
 
 
 // 2.0 /CHEAP MEALS
