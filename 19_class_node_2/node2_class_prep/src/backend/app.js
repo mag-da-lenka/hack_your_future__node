@@ -57,7 +57,7 @@ const getHead = require("./head");
 app.get("/", async (request, response) => {
     response.send(`
 
-    ${getHead('node 1 : : hw : : meal sharing app 1')} 
+    ${getHead('node 2 : : preparation vids v.2021')} 
 
     <body>
 
