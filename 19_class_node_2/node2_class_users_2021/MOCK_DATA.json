@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "user": "Squirrel1",
+        "first_name": "Magdalena1",
+        "last_name": "Voigt1",
+        "email": "squirrel1@forest.dk",
+        "gender": "female1"
+    },
+    {
+        "id": 2,
+        "user": "Squirrel2",
+        "first_name": "Magdalena2",
+        "last_name": "Voigt2",
+        "email": "squirrel2@forest.dk",
+        "gender": "female2"
+    },
+    {
+        "id": 3,
+        "user": "Squirrel3",
+        "first_name": "Magdalena3",
+        "last_name": "Voigt3",
+        "email": "squirrel3@forest.dk",
+        "gender": "female3"
+    }
+]
