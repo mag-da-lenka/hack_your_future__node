@@ -23,17 +23,17 @@ router.get("/:id", async (req, res) => {
 
         else if (isNaN(an_ID)) {
             res.status(400)
-                .send(`ERROR 400: Not a Number > ENTER A NUMBER!`);
+                .send(`reservations router here > ERROR 400: Not a Number > ENTER A NUMBER!`);
         }
 
         else if (an_ID !== reservations.length) {
             res.status(404)
-                .send(`ERROR 404: ID ${an_ID} > NOT FOUND!`);
+                .send(`reservations router here > ERROR 404: ID ${an_ID} > NOT FOUND!`);
         }
 
         else {
             res.status(418)
-                .send(`ERROR 418: I'm a teapot > fill me with coffee.`);
+                .send(`reservations router here > ERROR 418: I'm a teapot > fill me with coffee.`);
         }
 
     }
@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
     catch (err) {
 
         res.status(417)
-            .send(`ERROR 417: EXPECTATION FAILED! > EXPECT LESS! `);
+            .send(`reservationsss router here > ERROR 417 : EXPECTATION FAILED! > EXPECT LESS! `);
 
     }
 

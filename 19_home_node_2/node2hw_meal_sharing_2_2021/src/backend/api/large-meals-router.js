@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 
             const largeMealsFiltered = mealsWithRevs_v2
             .filter((aLargeMeal) =>
-              aLargeMeal.maxNumberOfGuests > 16);
+              aLargeMeal.maxNumberOfGuests > 15);
 
         res.status(200)
             .send(largeMealsFiltered);
@@ -28,9 +28,10 @@ router.get("/", async (req, res) => {
     catch (err) {
 
         res.status(417)
-            .send(`ERROR 417: EXPECTATION FAILED! > EXPECT LESS! `);
+            .send(`large_meals router here > ERROR 417 : EXPECTATION FAILED! > EXPECT LESS! `);
 
     }
+
 
 })
 

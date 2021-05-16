@@ -19,12 +19,12 @@ const getHead = (title) => (`
       margin-top: 3%;
       margin-bottom: 3%;
       padding: 2% 3% 2% 3%;
-      width: 50vw;
+      width: 70vw;
       text-align: left;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      border: dashed 3px rgb(194, 165, 181);
-      border-radius: 20px;
+      border: dashed 2px rgb(194, 165, 181);
+      border-radius: 10px;
     }
     
     h1, h2, h3, p, ul, li, a {
@@ -51,7 +51,8 @@ const getHead = (title) => (`
     } 
     
     h1, h3, h2, .no-tasks {
-      color: rgb(194, 165, 181);
+      color: rgb(194, 165, 181); 
+      margin: 0% 0% 0% -2%;
     }
        
     ul {
@@ -97,11 +98,14 @@ const getHead = (title) => (`
     
      
     a:link {
-      margin: 0% 1% 0% 1%;
-      padding: 0% 0.75% 0.25% 3.75%;
+      margin: 0% 0% 0% 0%;
+      padding: 0% 0% 0% 0%;
       color: rgb(228, 228, 228);
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 0px;
+      border: solid 0px rgb(194, 165, 181);
+      overflow-x: hidden;
+      overflow-y: hidden; 
     }
     
     a:visited {

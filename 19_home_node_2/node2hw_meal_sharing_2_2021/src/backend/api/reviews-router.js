@@ -13,7 +13,7 @@ router.get("/:id", async (req, res) => {
 
   try {
 
-    if (an_ID <= reviews.length) { 
+    if (an_ID <= reviews.length) {
       const aReviewWithId = reviews
         .find(aReview =>
           aReview.id === an_ID)
@@ -21,19 +21,19 @@ router.get("/:id", async (req, res) => {
         .send(aReviewWithId);
     }
 
-    else if (isNaN(an_ID)) { 
+    else if (isNaN(an_ID)) {
       res.status(400)
-        .send(`ERROR 400: Not a Number > ENTER A NUMBER!`);
+        .send(`reviews router here > ERROR 400: Not a Number > ENTER A NUMBER!`);
     }
 
-    else if (an_ID !== reviews.length) { 
+    else if (an_ID !== reviews.length) {
       res.status(404)
-        .send(`ERROR 404: ID ${an_ID} > NOT FOUND!`);
+        .send(`reviews router here > ERROR 404: ID ${an_ID} > NOT FOUND!`);
     }
 
     else {
       res.status(418)
-        .send(`ERROR 418: I'm a teapot > fill me with coffee.`);
+        .send(`reviews router here > ERROR 418: I'm a teapot > fill me with coffee.`);
     }
 
   }
@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
   catch (err) {
 
     res.status(417)
-      .send(`ERROR 417: EXPECTATION FAILED! > EXPECT LESS! `);
+      .send(`reviewsss router here (/:id) > ERROR 417 : EXPECTATION FAILED! > EXPECT LESS! `);
 
   }
 
@@ -49,8 +49,20 @@ router.get("/:id", async (req, res) => {
 
 // task 06) all reviews
 router.get("/", async (req, res) => {
-  res.status(200)
-    .send(reviews);
+
+  try {
+
+    res.status(200)
+      .send(reviews);
+
+  }
+
+  catch (err) {
+
+    res.status(417)
+      .send(`reviews router here ( / ) > ERROR 417 : EXPECTATION FAILED! > EXPECT LESS! `);
+
+  }
 });
 
 module.exports = router;

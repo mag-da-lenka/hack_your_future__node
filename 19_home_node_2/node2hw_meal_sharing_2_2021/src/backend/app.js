@@ -43,13 +43,15 @@ const myTestRouter =
 app.use("/api/my_test", myTestRouter);
 
 
+
 // MAIN (for a better UX :>)
 const getHead = require("./head");
+
 app.get("/", async (request, response) => {
     response.send(`
     ${getHead('node 2 : : hw : : meal sharing app 2')} 
     <body>
-      <h1>node 1 : : hw : : meal sharing app 2 v.2021 </h1> <br/>
+      <h1>node 2 : : hw : : meal sharing app 2 v.2021 </h1> <br/>
            
       <h2> : : my_test to see the initial json files : : </h2><br/>
 
@@ -83,34 +85,38 @@ app.get("/", async (request, response) => {
       <h2> : : more tasks on /api/meals/ : : </h2> <br/> 
       
       <h3> 07) /api/meals?maxPrice=90 </h3> 
-      <a href="http://localhost:3000/api/meals?maxPrice=90">              http://localhost:3000/api/meals?maxPrice=90 </a> <br/><br/>
+      <a href="http://localhost:3000/api/meals?maxPrice=90">              http://localhost:3000/api/meals?maxPrice=90 </a> <br/>
+      <a href="http://localhost:3000/api/meals?maxPrice=blabla">          http://localhost:3000/api/meals?maxPrice=blabla </a> <br/><br/>
       <h3> 08) /api/meals?title=Indian%20platter </h3> 
       <a href="http://localhost:3000/api/meals?title=food">               http://localhost:3000/api/meals?title=food </a> <br/> 
       <a href="http://localhost:3000/api/meals?title=pink">               http://localhost:3000/api/meals?title=pink </a> <br/>
       <a href="http://localhost:3000/api/meals?title=floyd">              http://localhost:3000/api/meals?title=floyd </a> <br/>
       <a href="http://localhost:3000/api/meals?title=flamingo">           http://localhost:3000/api/meals?title=flamingo </a> <br/>
       <a href="http://localhost:3000/api/meals?title=Indian%20platter">   http://localhost:3000/api/meals?title=Indian%20platter </a> <br/>
-      <a href="http://localhost:3000/api/meals?title=Green%20Copenhagen"> http://localhost:3000/api/meals?title=Green%20Copenhagen </a> <br/><br/>
+      <a href="http://localhost:3000/api/meals?title=copenhagen&=food">   http://localhost:3000/api/meals?title=copenhagen&=food </a> <br/><br/>
       <h3> 09) /api/meals?createdAfter=2019-04-05 </h3> 
       <a href="http://localhost:3000/api/meals?createdAfter=2019-04-05">  http://localhost:3000/api/meals?createdAfter=2019-04-05 </a> <br/>
       <a href="http://localhost:3000/api/meals?createdAfter=2020-04-05">  http://localhost:3000/api/meals?createdAfter=2020-04-05 </a> <br/>
-      <a href="http://localhost:3000/api/meals?createdAfter=Tue%20May%2011%202021%2000:40:01%20GMT+0200%20(Central%20European%20Summer%20Time)">  
-               http://localhost:3000/api/meals?\n\b\b\b\bcreatedAfter=Tue%20May%2011%202021%20\n\b\b\b\b00:40:01%20GMT+0200%20\n\b\b\b\b(Central%20European%20Summer%20Time) </a> <br/><br/>    
+      <a href="http://localhost:3000/api/meals?createdAfter=2020-04-055"> http://localhost:3000/api/meals?createdAfter=2020-04-055 </a> <br/><br/>    
       <h3> 10) /api/meals?limit=4 </h3> 
       <a href="http://localhost:3000/api/meals?limit=5">                  http://localhost:3000/api/meals?limit=5 </a> <br/> 
       <a href="http://localhost:3000/api/meals?limit=bzz">                http://localhost:3000/api/meals?limit=bzz </a> <br/><br/> 
-      <h3> 11) = 01) What if there is no meal with the requested id in meals.json? -> make error status </h3> 
+      <h3> 11) = 01) What if there is no meal with the requested id in meals.json? -></h3> 
       <a href="http://localhost:3000/api/meals/666">                      http://localhost:3000/api/meals/666 </a> <br/><br/> 
-      <h3> 12) = 01) What if the users writes a string as id? fx "/meals/lol" -> make error status </h3> 
+      <h3> 12) = 01) =03) =05) What if the users writes a string as id? fx "/meals/lol"</h3> 
       <a href="http://localhost:3000/api/meals/lol">                      http://localhost:3000/api/meals/lol </a> <br/><br/> 
-      <h3> 13) What if the users writes a query parameter that is not supported? -> make error status </h3>
-      <a href="http://localhost:3000/api/desserts?minPrice=2">            http://localhost:3000/api/desserts?minPrice=2 </a> <br/><br/>
-
+      <h3> 13) What if the users writes a query parameter that is not supported?</h3>
+      <a href="http://localhost:3000/api/meals?xxxPrice=90">              http://localhost:3000/api/meals?xxxPrice=90 </a> <br/>
+      <a href="http://localhost:3000/api/meals?xxxtitle=food">            http://localhost:3000/api/meals?xxxtitle=food </a> <br/>
+      <a href="http://localhost:3000/api/meals?xcreatedAfter=2019-04-05"> http://localhost:3000/api/meals?xcreatedAfter=2019-04-052 </a> <br/>
+      <a href="http://localhost:3000/api/meals?xxxlimit=2">               http://localhost:3000/api/meals?xxxlimit=2 </a> <br/><br/>
+      
+      
       <h2> : : old tasks from node 1 : : </h2><br/>
 
       <h3> 14) /api/meal (random, with reviews)</h3> 
       <a href="http://localhost:3000/api/meal">          http://localhost:3000/api/meal         </a>   <br/><br/> 
-      <h3> 15) = 02) /api/meals </h3> 
+      <h3> 15) = 02) /api/meals (with reviews) </h3> 
       <a href="http://localhost:3000/api/meals">         http://localhost:3000/api/meals        </a>   <br/><br/>
       <h3> 16) /api/large-meals (with reviews) </h3>
       <a href="http://localhost:3000/api/large-meals">   http://localhost:3000/api/large-meals  </a>   <br/><br/> 

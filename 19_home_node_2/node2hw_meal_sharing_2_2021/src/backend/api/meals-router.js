@@ -1,40 +1,58 @@
 const express = require("express");
 const router = express.Router();
-// const { request, response } = require("express");
+
 
 const meals = require("./../data/meals.json");
+const reviews = require("./../data/reviews.json");
 // https://httpstatuses.com/
 
 
-// task 01) meals with a corresponding /:id
+
+
+
+// PATH parameters /:id
 
 router.get("/:id", async (req, res) => {
 
-  const an_ID = parseInt(req.params.id);
+  const an_ID = Number(req.params.id);
 
   try {
 
+
+    // bind meals with reviews: 
+    const mealsWithRevs = meals
+      .map((aMeal) => {
+        aMeal.reviews = reviews
+          .filter((aReview) =>
+            aReview.mealId === aMeal.id);
+        return aMeal;
+      })
+
+
     if (an_ID <= meals.length) {
-      const aMealWithId = meals
-        .find(aReview =>
+      const aMealWithId = mealsWithRevs // from meals with reviews 
+        .find((aReview) =>
           aReview.id === an_ID)
       res.status(200)
-        .send(aMealWithId);
+        .json(aMealWithId);
     }
 
-    else if (isNaN(an_ID)) {
+    if (isNaN(an_ID)) {
       res.status(400)
-        .send(`ERROR 400: Not a Number > ENTER A NUMBER!`);
+        .send(`meals router here (/:id) <br/>
+               ERROR 400 (/:id): Not a Number > ENTER A NUMBER!`);
     }
 
-    else if (an_ID !== meals.length) {
+    if (an_ID !== meals.length) {
       res.status(404)
-        .send(`ERROR 404: ID ${an_ID} > NOT FOUND!`);
+        .send(`meals router here (/:id) <br/> 
+               ERROR 404 (/:id): ID no: ${an_ID} > NOT FOUND!`);
     }
 
     else {
       res.status(418)
-        .send(`ERROR 418: I'm a teapot > fill me with coffee.`);
+        .send(`meals router here (/:id) <br/> 
+               ERROR 418 (/:id): I'm a teapot > fill me with coffee.`);
     }
 
   }
@@ -42,7 +60,8 @@ router.get("/:id", async (req, res) => {
   catch (err) {
 
     res.status(417)
-      .send(`ERROR 417: EXPECTATION FAILED! > EXPECT LESS! `);
+      .send(`catch > meals router here (/:id) <br/> 
+             ERROR 417 (/:id) : EXPECTATION FAILED! > EXPECT LESS! `);
 
   }
 
@@ -54,29 +73,56 @@ router.get("/:id", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
+// (/) and QUERY parameters
 
 router.get("/", async (req, res) => {
+
 
   try {
 
 
-    // task 07) meals that have a price < maxPrice; data type: Number; path example	/api/meals?maxPrice=90
-    if ('maxPrice' in req.query) {
-      const maxPrice = parseInt(req.query.maxPrice);
-      const mealsWithMaxPrice = meals
-        .filter((aMeal) => aMeal.price <= maxPrice)
+    // meals to be shown with reviews > "join": 
+    const mealsWithRevs = meals
+      .map((aMeal) => {
+        aMeal.reviews = reviews
+          .filter((aReview) =>
+            aReview.mealId === aMeal.id);
+        return aMeal;
+      })
 
+
+    // supported query params:  
+    const supportedParams = ['maxPrice', 'title', 'createdAfter', 'limit'];
+    // incoming queries: 
+    const incomingQuery = Object.keys(req.query)
+    // validation check:
+    const validatedQueryParam = (anIncomingQueryParam) =>
+      supportedParams.includes(anIncomingQueryParam)
+
+
+    // -----> if anIncomingQueryParam is NOT supported >> kill it now: 
+    if (!incomingQuery.every(validatedQueryParam)) {
+      res.status(400)
+        .send(`meals router here (/?err=...) <br/> 
+               ERROR 404: You've searched for >> ${incomingQuery} >> QUERY NOT VALID!`)
+      return;
+    }
+
+
+    // -----> else if anIncomingQueryParam IS supported:   
+
+
+
+    // ***** maxPrice *****  path example:	/api/meals?maxPrice=90
+    // meals that have a price < maxPrice; data type: Number; 
+    if ('maxPrice' in req.query) {
+      const maxPrice = Number(parseInt(req.query.maxPrice));
+      const mealsWithMaxPrice = mealsWithRevs // from meals with reviews 
+        .filter((aMeal) => aMeal.price <= maxPrice)
       if (isNaN(maxPrice)) {
         res.status(400)
-          .send(`ERROR 400: Not a Number > ENTER A NUMBER!`);
+          .send(`meals router here (/?maxPrice=NaN) <br/>
+                 ERROR 400: Not a Number > ENTER A NUMBER to search for maxPrice!`);
         return
       }
       res.status(200)
@@ -84,44 +130,52 @@ router.get("/", async (req, res) => {
     }
 
 
-    // task 08) meals that partially match a title. Rød grød med will match the meal with the title Rød grød med fløde; 
-    //          data type: String; path example: /api/meals?title=Indian%20platter 
+
+    // ***** title (partial match) ***** path example: /api/meals?title=Indian%20platter
+    // Rød grød med will match the meal with the title Rød grød med fløde; data type: String; 
     if ('title' in req.query) {
       const titleInputParam = req.query.title.toLowerCase();
       const titleMatchingMeals = meals
         .filter((aMeal) => aMeal.title
           .toLowerCase()
           .includes(titleInputParam));
+      // //  how do I formulate a condition to respond the way below?  
+      // res.status(404)
+      //   .send(`meals router here (/?title=NO_MATCH) <br/>
+      //        ERROR 404: TITLE NOT FOUND > try a different TITLE!`)
       res.status(200)
         .send(titleMatchingMeals);
-      return
     }
-    // I tried 666mln times to respond with status(400) and send(`ERROR 400: NOT A VALID TITLE > TRY STH ELSE!`); 
-    // and NOTHING WORKED ---> HELP!!!
 
 
-    // task 09) meals that has been created after the date; data type: Date; path example: /api/meals?createdAfter=2019-04-05 
+
+    // ***** createdAfter ***** path example: /api/meals?createdAfter=2019-04-05
+    // meals that has been created after the date; data type: Date;  
     if ('createdAfter' in req.query) {
       const dateInputParam = req.query.createdAfter;
       const meal_createdAfter_date = new Date(dateInputParam)
       if (!meal_createdAfter_date.getDate()) {
         res.status(400)
-          .send('ERROR 400: NOT A VALID DATE TYPE > ENTER STH LIKE THIS: 2019-04-05 !')
+          .send(`meals router here (/?createdAfter=NOT_VALID) <br/>
+                 ERROR 400: NOT A VALID DATE TYPE > ENTER STH LIKE THIS: 2019-04-05 !`);
         return
       }
       const mealsCreatedAfter_dateInputParam = meals
-        .filter(aMeal => new Date(aMeal.createdAt) > new Date(dateInputParam))
+        .filter((aMeal) => new Date(aMeal.createdAt) > new Date(dateInputParam))
       res.status(200)
         .send(mealsCreatedAfter_dateInputParam);
     }
 
 
-    // task 10) limit	: : only specific number of meals; data type: Number; path example:	/api/meals?limit=4 
+
+    // ***** limit ***** path example:	/api/meals?limit=4 
+    // limit	: : only specific number of meals; data type: Number; 
     if ('limit' in req.query) {
       const limitInputParam = req.query.limit;
       if (isNaN(limitInputParam)) {
         res.status(400)
-          .send(`ERROR 400: Not a Number > ENTER A NUMBER!`);
+          .send(`meals router here (/?limit=NaN) <br/>
+                 ERROR 400: Not a Number > ENTER A NUMBER!`);
         return
       }
       const limitedNumberOfMeals = meals
@@ -132,46 +186,37 @@ router.get("/", async (req, res) => {
     }
 
 
-    // task 02) all meals ---> HAS TO BE at the end!!!
-    else {
+
+
+    // ELSE > all meals 
+    else {  // with REVIEWS
       res.status(200)
-        .send(meals);
+        .send(mealsWithRevs);
     }
 
-    // // instead of
-    // router.get("/", async (req, res) => {
-    //   res.status(200)
-    //     .send(meals);
-    // });
+
+    // WITHOUT REVIEW is possible, but that would require: 
+    // 1. disconnecting of reviews from meals.json
+    // 2. removing reviews.json from the required data)  
+    // 3. changing the mealsWithRevs into meals_copy 
+
+
 
 
   }
+
+
+
 
   catch (err) {
 
     res.status(417)
-      .send(`ERROR 417: EXPECTATION FAILED! > EXPECT LESS! `);
+      .send(` catch: meals router here (/) <br/> 
+              ERROR 417: EXPECTATION FAILED! > EXPECT LESS! `);
 
   }
 
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+});
 
 
 
