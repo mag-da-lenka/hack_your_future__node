@@ -1,0 +1,135 @@
+const getHead = (title) => (`
+
+  <head> 
+
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    <title>${title}</title> 
+    <style type = "text/css">  
+    
+    head {
+      border: dashed 3px rgb(194, 165, 181);
+      border-radius: 20px
+    }
+    
+    body {
+      background-image: linear-gradient(to bottom, rgb(59, 100, 95), rgb(51, 78, 75));
+      color: rgb(228, 228, 228);
+      font-family: 'Abel';
+      margin: auto;
+      margin-top: 3%;
+      margin-bottom: 3%;
+      padding: 2% 3% 2% 3%;
+      width: 70vw;
+      text-align: left;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      border: dashed 2px rgb(194, 165, 181);
+      border-radius: 10px;
+    }
+    
+    h1, h2, h3, p, ul, li, a {
+      border: none;
+      font-weight: 300;
+      margin: 0;
+      padding: 0;
+      line-height: 1em;
+      font-size: 1.0em;
+      text-align: left;
+      list-style-position: inside
+    }
+
+    h1 {
+      font-size: xx-large;
+    }
+    
+    h2 {
+      font-size: x-large;
+    }
+
+    h3 {
+      font-size: large; 
+    } 
+    
+    h1, h3, h2, .no-tasks {
+      color: rgb(194, 165, 181); 
+      margin: 0% 0% 0% -2%;
+    }
+       
+    ul {
+      list-style-type: none;
+      margin: 0% 0% 0% 0%;
+      padding: 0% 0% 0% 0%;
+    }
+    
+    li {
+      display: flex;
+      list-style-type: none;
+      border: solid 1px rgba(194, 165, 181, 0.596);
+      border-radius: 11px;
+      margin: 1% 0.7% 1% 0.7%;
+      padding: 1% 1% 1% 3%;
+      line-height: 1.2em;
+    }
+    
+     
+    button {
+      width: 150px;
+      height: 40px;
+      margin: 1% 1% 1% 1%;
+      padding: 0% 0% 0% 0%;
+      color: rgb(228, 228, 228);
+      /* font-weight: bold; */
+      font-size: 1.1em;
+      text-align: center;
+      background-color: rgb(51, 78, 75);
+      cursor: pointer;
+      border: 3.0px solid rgba(228, 228, 228, 0.589);
+      border-radius: 15px;
+      box-shadow: 10px 10px 8px #888888;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.274);
+      outline: none;
+    }
+    
+    button:hover {
+      color: rgb(51, 78, 75);
+      background-color: rgb(228, 228, 228);
+      outline: none;
+    }
+    
+     
+    a:link {
+      margin: 0% 0% 0% 0%;
+      padding: 0% 0% 0% 0%;
+      color: rgb(228, 228, 228);
+      text-decoration: none;
+      border-radius: 0px;
+      border: solid 0px rgb(194, 165, 181);
+      overflow-x: hidden;
+      overflow-y: hidden; 
+    }
+    
+    a:visited {
+      color: rgba(228, 228, 228, 0.678);
+    }
+    
+    a:hover, a:active, a:focus {
+      color: rgb(255, 255, 255);
+      /* background-color: orange; */
+      opacity: 0.5;
+    }
+    
+    @media only screen and (max-width: 600px) {
+      body {
+        background-color: ghostwhite;
+        max-width: 440px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    </style>
+
+  </ head>
+  
+`);
+
+module.exports = getHead;
